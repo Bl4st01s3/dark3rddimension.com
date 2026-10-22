@@ -72,7 +72,7 @@ function renderProjects(projects, gridId) {
           ${imageHtml}
           <p class="mono">${project.id}</p>
           <h3>${project.title}</h3>
-          <p>${project.description}</p>
+          <p>${project.description.length > 150 ? project.description.substring(0, 147) + '...' : project.description}</p>
           <span class="${chipClass}">${project.status}</span>
         </div>
       </a>
