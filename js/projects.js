@@ -3,7 +3,7 @@ const projectData = {
     {
       "id": "NODE 01",
       "title": "CyberSynk",
-      "description": "The CyberSynk Command Console is an all in one console to control your entire desk set up, Multiple PCs, WLED, 3D printers (Klipper, Bambu, Prusa and Octoprint).
+      "description": `The CyberSynk Command Console is an all in one console to control your entire desk set up, Multiple PCs, WLED, 3D printers (Klipper, Bambu, Prusa and Octoprint).
 
 It is designed to have physical hardware mounted to the wings that flank the 10 inch screen to give options for physical buttons, rotary encoders, pots, and sliders letting the user build the system to there needs.
 
@@ -15,9 +15,9 @@ Each button can also have either a built in image, OR you can upload your own SV
 along with the colour of the text and button border
 
 The way that the System is set up means that Adding your own Python scripts to expand the Systems abilities is as easy as writing the script following the instructions in the in PROTOCOLS/ACTIONS_PROTOCOL.md 
-and dropping it into the right file in directory that is named the name of the tool will any other files that It needs to run.",
+and dropping it into the right file in directory that is named the name of the tool will any other files that It needs to run.`,
       "status": "LIVE",
-      "images": ["assets/CyberSynk"],
+      "image_folder": "assets/CyberSynk",
       "counts": {
         "jpg": 2,
         "png": 1
