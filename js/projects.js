@@ -16,7 +16,7 @@ along with the colour of the text and button border
 
 The way that the System is set up means that Adding your own Python scripts to expand the Systems abilities is as easy as writing the script following the instructions in the in PROTOCOLS/ACTIONS_PROTOCOL.md 
 and dropping it into the right file in directory that is named the name of the tool will any other files that It needs to run.`,
-      "status": "LIVE",
+      "status": "TESTING",
       "image_folder": "assets/CyberSynk",
       "counts": {
         "jpg": 2,
