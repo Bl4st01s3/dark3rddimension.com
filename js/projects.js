@@ -44,8 +44,8 @@ letting the CyberMouse work with bigger multi monitor setups`,
       "status": "CODING",
       "image_folder": "assets/project_alpha",
       "counts": {
-        "jpg": 2,
-        "png": 1
+        "jpg": 0,
+        "png": 2
       },
       "link": "projects/cybermouse.html"
     },
