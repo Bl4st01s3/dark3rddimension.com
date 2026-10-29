@@ -42,7 +42,7 @@ The CyberMouse main node is designed to handle one camera mounted on one screen 
 that have there own cameras mounted to other monitors in a multi monitor set up that then send the video stream to the main node for processing 
 letting the CyberMouse work with bigger multi monitor setups`,
       "status": "CODING",
-      "image_folder": "assets/project_alpha",
+      "image_folder": "assets/CyberMouse",
       "counts": {
         "jpg": 0,
         "png": 2
