@@ -1,0 +1,7 @@
+[] add static hiss blip when holograms change
+[] add pneumatic hiss and hologram startup sounds when hologram projectors starts to show menus
+[] add screen shots from CyberWeb
+[] add screen shots from CyberSync
+[] add make projects JSON editing program to make adding, editing and changing project status and state easy
+[] make full details page for all projects
+[] make desk simulation to show the different maker tools, what they do and how they work
