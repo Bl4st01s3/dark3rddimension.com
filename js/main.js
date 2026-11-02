@@ -1,20 +1,10 @@
-const stage = document.querySelector("[data-holo]");
-
-if (stage && window.matchMedia("(pointer: fine)").matches) {
-  stage.addEventListener("pointermove", (event) => {
-    const bounds = stage.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    stage.style.transform = `perspective(900px) rotateX(${y * -8}deg) rotateY(${x * 10}deg)`;
-  });
-
-  stage.addEventListener("pointerleave", () => {
-    stage.style.transform = "";
-  });
-}
+// Interactive Hologram stage (3D parallax, click transitions, and 3D model loading)
+// is managed in js/holo-viewer.js.
 
 // Project Loading and Rendering
 document.addEventListener("DOMContentLoaded", () => {
+  initHoloMenu();
+
   if (typeof projectData !== 'undefined') {
     renderProjects(projectData.workbench, 'workbench-grid');
     renderProjects(projectData.archive, 'archive-grid');
@@ -23,6 +13,48 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("projectData is not defined. Ensure projects.js is loaded.");
   }
 });
+
+function initHoloMenu() {
+  const menuDock = document.querySelector(".holo-menu-dock");
+  const projectorBtn = menuDock?.querySelector(".menu-projector-btn");
+  const menuLinks = menuDock?.querySelectorAll(".holo-menu-link");
+
+  if (!menuDock || !projectorBtn) return;
+
+  // Toggle open state on button click (for touch devices or click-to-pin)
+  projectorBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = menuDock.classList.toggle("is-open");
+    projectorBtn.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  // Aim the menu projector turret at whichever holographic menu link is hovered
+  menuLinks?.forEach((link) => {
+    link.addEventListener("pointerenter", () => {
+      const aimDeg = Number(link.getAttribute("data-aim") || 0);
+      menuDock.style.setProperty("--menu-turret-angle", `${aimDeg}deg`);
+      menuDock.style.setProperty("--menu-flap-boost", "3.5deg");
+    });
+
+    link.addEventListener("pointerleave", () => {
+      menuDock.style.setProperty("--menu-turret-angle", "0deg");
+      menuDock.style.setProperty("--menu-flap-boost", "0deg");
+    });
+
+    link.addEventListener("click", () => {
+      menuDock.classList.remove("is-open");
+      projectorBtn.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  // Close pinned menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!menuDock.contains(e.target)) {
+      menuDock.classList.remove("is-open");
+      projectorBtn.setAttribute("aria-expanded", "false");
+    }
+  });
+}
 
 function renderProjects(projects, gridId) {
   const grid = document.getElementById(gridId);

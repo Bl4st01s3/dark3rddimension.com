@@ -14,7 +14,15 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/main.css?v=5" />
+    <link rel="stylesheet" href="css/main.css?v=17" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="construction-banner">
@@ -89,20 +97,145 @@
       </g>
     </svg>
 
-    <header class="topbar">
-      <a class="mark" href="#top">
-        <span class="mark-hex" aria-hidden="true"></span>
-        <span>
-          DARK 3RD DIMENSION
-          <small>dark3rddimension.com</small>
-        </span>
-      </a>
-      <nav>
-        <a href="#work">Work</a>
-        <a href="#downloads" data-status="soon">Downloads</a>
-        <a href="#support" data-status="soon">Support</a>
-      </nav>
-    </header>
+    <!-- Top-Left Mechanical Hologram Projector Navigation Menu -->
+    <nav class="holo-menu-dock" aria-label="Main Navigation">
+      <button
+        type="button"
+        class="menu-projector-btn"
+        aria-expanded="false"
+        aria-label="Open Hologram Navigation Menu"
+      >
+        <!-- Left-Edge Wall Bulkhead & Struts (anchored flush to left edge of window) -->
+        <div class="menu-wall-mount" aria-hidden="true">
+          <div class="wall-flange left"></div>
+          <div class="wall-strut top"></div>
+          <div class="wall-conduit"></div>
+          <div class="wall-strut bottom"></div>
+        </div>
+
+        <!-- Unfolding CNC-Machined Menu Projector with 3-Bar Hamburger Emblem -->
+        <svg class="menu-projector-rig" viewBox="0 0 180 140" fill="none" aria-hidden="true">
+          <!-- Stationary Rear Bulkhead & Heatsink Stack -->
+          <g class="menu-projector-mount">
+            <path d="M58 14 L4 20 L4 120 L58 126 L72 112 L72 28 Z" fill="url(#gunmetal-plate)" stroke="#475569" stroke-width="1.2" />
+
+            <!-- Machined Heatsink Fins -->
+            <rect x="10" y="22" width="42" height="4.5" rx="1" fill="url(#heatsink-fin)" stroke="#334155" stroke-width="0.6" />
+            <rect x="10" y="30" width="42" height="4.5" rx="1" fill="url(#heatsink-fin)" stroke="#334155" stroke-width="0.6" />
+            <rect x="10" y="38" width="42" height="4.5" rx="1" fill="url(#heatsink-fin)" stroke="#334155" stroke-width="0.6" />
+            <rect x="10" y="97.5" width="42" height="4.5" rx="1" fill="url(#heatsink-fin)" stroke="#334155" stroke-width="0.6" />
+            <rect x="10" y="105.5" width="42" height="4.5" rx="1" fill="url(#heatsink-fin)" stroke="#334155" stroke-width="0.6" />
+            <rect x="10" y="113.5" width="42" height="4.5" rx="1" fill="url(#heatsink-fin)" stroke="#334155" stroke-width="0.6" />
+
+            <!-- Recessed Cyan Thermal Vents (Revealed when mid-body flaps unfold) -->
+            <g class="menu-cooling-vents">
+              <rect x="66" y="24" width="24" height="10" rx="1.5" fill="#060b14" stroke="#1e293b" stroke-width="0.8" />
+              <line x1="70" y1="27" x2="86" y2="27" stroke="#3cf6ff" stroke-width="1.6" stroke-linecap="round" />
+              <line x1="72" y1="31" x2="88" y2="31" stroke="#3cf6ff" stroke-width="1.3" stroke-linecap="round" opacity="0.8" />
+
+              <rect x="66" y="106" width="24" height="10" rx="1.5" fill="#060b14" stroke="#1e293b" stroke-width="0.8" />
+              <line x1="70" y1="113" x2="86" y2="113" stroke="#3cf6ff" stroke-width="1.6" stroke-linecap="round" />
+              <line x1="72" y1="109" x2="88" y2="109" stroke="#3cf6ff" stroke-width="1.3" stroke-linecap="round" opacity="0.8" />
+            </g>
+
+            <!-- Vertical Gimbal Spine -->
+            <path d="M62 34 L76 34 L76 106 L62 106 Z" fill="url(#gunmetal-plate)" stroke="#475569" stroke-width="1" />
+
+            <!-- Unfolding Mid-Body Cooling & Field Shroud Flaps -->
+            <g class="menu-mid-flap top">
+              <polygon points="56,22 104,22 96,36 62,36" fill="url(#metal-cylinder-v)" stroke="#64748b" stroke-width="1.1" />
+              <line x1="66" y1="34.5" x2="94" y2="34.5" stroke="#3cf6ff" stroke-width="1.1" stroke-opacity="0.7" />
+              <circle cx="64" cy="29" r="2.4" fill="#090d16" stroke="#94a3b8" stroke-width="1" />
+            </g>
+            <g class="menu-mid-flap bottom">
+              <polygon points="56,118 104,118 96,104 62,104" fill="url(#metal-cylinder-v)" stroke="#64748b" stroke-width="1.1" />
+              <line x1="66" y1="105.5" x2="94" y2="105.5" stroke="#3cf6ff" stroke-width="1.1" stroke-opacity="0.7" />
+              <circle cx="64" cy="111" r="2.4" fill="#090d16" stroke="#94a3b8" stroke-width="1" />
+            </g>
+
+            <!-- Rear Bulkhead Hex Bolts -->
+            <circle cx="14" cy="54" r="2.2" fill="#090d16" stroke="#94a3b8" stroke-width="1" />
+            <circle cx="14" cy="86" r="2.2" fill="#090d16" stroke="#94a3b8" stroke-width="1" />
+          </g>
+
+          <!-- Swiveling Optical Turret & Telescopic Unfolding Barrel -->
+          <g class="menu-projector-turret">
+            <!-- Telescopic Barrel Assembly (Slides outward when projector unfolds) -->
+            <g class="menu-barrel-slide">
+              <!-- Cylindrical Optical Barrel -->
+              <polygon points="88,42 134,47 134,93 88,98" fill="url(#metal-cylinder-v)" stroke="#64748b" stroke-width="1.2" />
+
+              <!-- Knurled Chrome Focus Rings -->
+              <rect x="104" y="44" width="5" height="52" rx="1" fill="url(#chrome-rim)" stroke="#0f172a" stroke-width="0.7" />
+              <rect x="115" y="45.5" width="5.5" height="49" rx="1" fill="url(#chrome-rim)" stroke="#0f172a" stroke-width="0.7" />
+
+              <!-- Beveled Front Nozzle Collar -->
+              <polygon points="133,45 144,51 144,89 133,95" fill="url(#chrome-rim)" stroke="#475569" stroke-width="1.1" />
+
+              <!-- Recessed Optical Emitter Lens Cavity (Right Side) -->
+              <ellipse cx="144" cy="70" rx="5" ry="18" fill="#05080f" stroke="#64748b" stroke-width="1.3" />
+              <ellipse class="menu-lens-core" cx="143.5" cy="70" rx="3.6" ry="13.5" fill="url(#proj-lens-glow)" />
+              <ellipse class="menu-lens-spark" cx="143" cy="70" rx="1.5" ry="7.5" fill="#ffffff" />
+
+              <!-- Unfolding Front Emitter Shutters / Claws (Closed over lens in standby, open wide on hover) -->
+              <g class="menu-emitter-flap top">
+                <polygon points="126,43 132,37 156,45 146,51" fill="url(#gunmetal-plate)" stroke="#94a3b8" stroke-width="1" />
+                <line x1="133" y1="42" x2="152" y2="48" stroke="#3cf6ff" stroke-width="1.2" stroke-opacity="0.85" />
+                <circle cx="132" cy="43" r="1.8" fill="#090d16" stroke="#cbd5e1" stroke-width="0.8" />
+              </g>
+              <g class="menu-emitter-flap bottom">
+                <polygon points="126,97 132,103 156,95 146,89" fill="url(#gunmetal-plate)" stroke="#94a3b8" stroke-width="1" />
+                <line x1="133" y1="98" x2="152" y2="92" stroke="#3cf6ff" stroke-width="1.2" stroke-opacity="0.85" />
+                <circle cx="132" cy="97" r="1.8" fill="#090d16" stroke="#cbd5e1" stroke-width="0.8" />
+              </g>
+            </g>
+
+            <!-- Central Armoured Turret Housing featuring the Classic 3-Bar Menu Icon -->
+            <rect x="26" y="42" width="70" height="56" rx="4" fill="url(#metal-cylinder-v)" stroke="#64748b" stroke-width="1.2" />
+            <polygon points="32,47 88,47 92,52 92,88 88,93 32,93 28,88 28,52" fill="#080c14" stroke="#334155" stroke-width="1.1" />
+
+            <!-- Classic 3-Bar Menu Icon (Glowing Cyan Holographic Emitter Bars) -->
+            <g class="menu-bars-icon">
+              <rect class="bar bar-1" x="40" y="56" width="40" height="4.5" rx="2.2" fill="#3cf6ff" />
+              <rect class="bar bar-2" x="40" y="67.75" width="40" height="4.5" rx="2.2" fill="#3cf6ff" />
+              <rect class="bar bar-3" x="40" y="79.5" width="40" height="4.5" rx="2.2" fill="#3cf6ff" />
+            </g>
+          </g>
+        </svg>
+      </button>
+
+      <!-- Projected Hologram Light Cone & Floating Holographic Navigation Menu -->
+      <div class="menu-holo-stage">
+        <div class="menu-projector-cone" aria-hidden="true">
+          <div class="menu-beam-scanlines"></div>
+        </div>
+
+        <div class="holo-menu-projection">
+          <div class="holo-menu-scanlines" aria-hidden="true"></div>
+          <div class="holo-menu-header">
+            <span class="holo-menu-dot"></span>
+            <span>NAV // HOLO-PROJECTION</span>
+          </div>
+          <div class="holo-menu-links">
+            <a href="#work" class="holo-menu-link" data-aim="-8">
+              <span class="holo-link-idx">01</span>
+              <span class="holo-link-label">Work</span>
+              <span class="holo-link-tag">ONLINE</span>
+            </a>
+            <a href="#downloads" class="holo-menu-link" data-status="soon" data-aim="0">
+              <span class="holo-link-idx">02</span>
+              <span class="holo-link-label">Downloads</span>
+              <span class="holo-link-tag soon">SOON</span>
+            </a>
+            <a href="#support" class="holo-menu-link" data-status="soon" data-aim="8">
+              <span class="holo-link-idx">03</span>
+              <span class="holo-link-label">Support</span>
+              <span class="holo-link-tag soon">SOON</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
     <main id="top">
       <section class="hero">
@@ -123,14 +256,203 @@
         </div>
 
         <div class="holo-wrapper">
-          <div class="projector-source"></div>
+          <div class="projector-source" aria-hidden="true">
+            <!-- Anchored Wall Bulkhead & Structural Support Arm (reaches flush to the right edge of the window) -->
+            <div class="projector-wall-mount">
+              <div class="wall-flange"></div>
+              <div class="wall-strut top"></div>
+              <div class="wall-conduit"></div>
+              <div class="wall-strut bottom"></div>
+            </div>
+
+            <!-- CNC-Machined Metallic Gimbal & Swiveling Optical Emitter Head -->
+            <svg class="projector-rig" viewBox="0 0 160 160" fill="none">
+              <defs>
+                <!-- Cylindrical Brushed Steel / Titanium Specular Gradient (Vertical) -->
+                <linearGradient id="metal-cylinder-v" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#0b0f17" />
+                  <stop offset="16%" stop-color="#2c3545" />
+                  <stop offset="28%" stop-color="#64748b" />
+                  <stop offset="34%" stop-color="#94a3b8" />
+                  <stop offset="44%" stop-color="#334155" />
+                  <stop offset="72%" stop-color="#0f1520" />
+                  <stop offset="88%" stop-color="#1e293b" />
+                  <stop offset="100%" stop-color="#070a10" />
+                </linearGradient>
+
+                <!-- Anodized Dark Gunmetal Armor Gradient -->
+                <linearGradient id="gunmetal-plate" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#3b4454" />
+                  <stop offset="22%" stop-color="#1e2530" />
+                  <stop offset="55%" stop-color="#11161f" />
+                  <stop offset="82%" stop-color="#252e3d" />
+                  <stop offset="100%" stop-color="#090c12" />
+                </linearGradient>
+
+                <!-- Bright Machined Chrome / Steel Bevel Rim -->
+                <linearGradient id="chrome-rim" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#475569" />
+                  <stop offset="30%" stop-color="#cbd5e1" />
+                  <stop offset="55%" stop-color="#1e293b" />
+                  <stop offset="85%" stop-color="#64748b" />
+                  <stop offset="100%" stop-color="#0f172a" />
+                </linearGradient>
+
+                <!-- Recessed Heatsink Fin Gradient -->
+                <linearGradient id="heatsink-fin" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#06080d" />
+                  <stop offset="60%" stop-color="#283140" />
+                  <stop offset="85%" stop-color="#526075" />
+                  <stop offset="100%" stop-color="#151a24" />
+                </linearGradient>
+
+                <!-- Radial Metallic Bearing Face -->
+                <radialGradient id="bearing-metal" cx="38%" cy="35%" r="65%">
+                  <stop offset="0%" stop-color="#94a3b8" />
+                  <stop offset="35%" stop-color="#334155" />
+                  <stop offset="75%" stop-color="#0f172a" />
+                  <stop offset="100%" stop-color="#05080f" />
+                </radialGradient>
+
+                <!-- Optical Emitter Lens Plasma Core -->
+                <radialGradient id="proj-lens-glow" cx="35%" cy="50%" r="65%">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="38%" stop-color="#3cf6ff" />
+                  <stop offset="75%" stop-color="#14b8c9" stop-opacity="0.6" />
+                  <stop offset="100%" stop-color="#05060c" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+
+              <!-- STATIONARY REAR BULKHEAD & GIMBAL YOKE -->
+              <g class="projector-mount">
+                <!-- Heavy Rear Mounting Collar & Heatsink Fin Stack -->
+                <path d="M98 20 L156 26 L156 134 L98 140 L84 126 L84 34 Z" fill="url(#gunmetal-plate)" stroke="#475569" stroke-width="1.2" />
+
+                <!-- Machined Aluminium Heatsink Fins -->
+                <rect x="104" y="28" width="46" height="5" rx="1" fill="url(#heatsink-fin)" stroke="#334155" stroke-width="0.6" />
+                <rect x="104" y="37" width="46" height="5" rx="1" fill="url(#heatsink-fin)" stroke="#334155" stroke-width="0.6" />
+                <rect x="104" y="46" width="46" height="5" rx="1" fill="url(#heatsink-fin)" stroke="#334155" stroke-width="0.6" />
+                <rect x="104" y="109" width="46" height="5" rx="1" fill="url(#heatsink-fin)" stroke="#334155" stroke-width="0.6" />
+                <rect x="104" y="118" width="46" height="5" rx="1" fill="url(#heatsink-fin)" stroke="#334155" stroke-width="0.6" />
+                <rect x="104" y="127" width="46" height="5" rx="1" fill="url(#heatsink-fin)" stroke="#334155" stroke-width="0.6" />
+
+                <!-- Center Structural Transformer Block -->
+                <rect x="92" y="56" width="60" height="48" rx="2" fill="url(#metal-cylinder-v)" stroke="#64748b" stroke-width="1" />
+                <rect x="100" y="63" width="44" height="34" rx="1" fill="#0b0f17" stroke="#334155" stroke-width="1" />
+                <!-- Subtle recessed coolant/power slit -->
+                <rect x="106" y="78" width="32" height="4" rx="1" fill="#3cf6ff" fill-opacity="0.7" />
+
+                <!-- Recessed Thermal Cooling Core Vents (revealed as mid-body flaps open) -->
+                <g class="projector-cooling-vents">
+                  <rect x="66" y="31" width="24" height="11" rx="1.5" fill="#060b14" stroke="#1e293b" stroke-width="0.8" />
+                  <line x1="70" y1="34" x2="86" y2="34" stroke="#3cf6ff" stroke-width="1.6" stroke-linecap="round" />
+                  <line x1="68" y1="38" x2="84" y2="38" stroke="#3cf6ff" stroke-width="1.3" stroke-linecap="round" opacity="0.75" />
+
+                  <rect x="66" y="118" width="24" height="11" rx="1.5" fill="#060b14" stroke="#1e293b" stroke-width="0.8" />
+                  <line x1="70" y1="126" x2="86" y2="126" stroke="#3cf6ff" stroke-width="1.6" stroke-linecap="round" />
+                  <line x1="68" y1="122" x2="84" y2="122" stroke="#3cf6ff" stroke-width="1.3" stroke-linecap="round" opacity="0.75" />
+                </g>
+
+                <!-- Hydraulic Stabilization Pistons connecting Yoke to Barrel -->
+                <line x1="88" y1="42" x2="66" y2="56" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" />
+                <line x1="88" y1="42" x2="75" y2="50" stroke="#1e293b" stroke-width="5.5" stroke-linecap="round" />
+                <line x1="88" y1="118" x2="66" y2="104" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round" />
+                <line x1="88" y1="118" x2="75" y2="110" stroke="#1e293b" stroke-width="5.5" stroke-linecap="round" />
+
+                <!-- Vertical C-Yoke Spine -->
+                <path d="M68 42 L80 42 L80 118 L68 118 Z" fill="url(#gunmetal-plate)" stroke="#475569" stroke-width="1" />
+
+                <!-- Articulated Mid-Body Cooling & Field Shroud Flaps (Pivot open with model size/rotation) -->
+                <g class="projector-mid-flap top">
+                  <polygon points="54,28 100,28 94,44 62,44" fill="url(#metal-cylinder-v)" stroke="#64748b" stroke-width="1.1" />
+                  <line x1="58" y1="42.5" x2="88" y2="42.5" stroke="#3cf6ff" stroke-width="1.1" stroke-opacity="0.65" />
+                  <circle cx="92" cy="36" r="2.6" fill="#090d16" stroke="#94a3b8" stroke-width="1" />
+                </g>
+                <g class="projector-mid-flap bottom">
+                  <polygon points="54,132 100,132 94,116 62,116" fill="url(#metal-cylinder-v)" stroke="#64748b" stroke-width="1.1" />
+                  <line x1="58" y1="117.5" x2="88" y2="117.5" stroke="#3cf6ff" stroke-width="1.1" stroke-opacity="0.65" />
+                  <circle cx="92" cy="124" r="2.6" fill="#090d16" stroke="#94a3b8" stroke-width="1" />
+                </g>
+
+                <!-- Countersunk Hex Bolts on Rear Mount -->
+                <circle cx="146" cy="64" r="2.4" fill="#090d16" stroke="#94a3b8" stroke-width="1" />
+                <circle cx="146" cy="96" r="2.4" fill="#090d16" stroke="#94a3b8" stroke-width="1" />
+              </g>
+
+              <!-- PIVOTING CNC-MACHINED OPTICAL BARREL (Aims with the Hologram Beam) -->
+              <g class="projector-turret">
+                <!-- Rear Counterweight & Cooling Drum of Barrel -->
+                <rect x="64" y="52" width="32" height="56" rx="3" fill="url(#metal-cylinder-v)" stroke="#475569" stroke-width="1.1" />
+
+                <!-- Main Cylindrical Optical Lens Barrel -->
+                <polygon points="24,54 66,48 66,112 24,106" fill="url(#metal-cylinder-v)" stroke="#64748b" stroke-width="1.2" />
+
+                <!-- Stationary Rear Barrel Ring -->
+                <rect x="56" y="48.5" width="5" height="63" rx="1" fill="url(#chrome-rim)" stroke="#0f172a" stroke-width="0.7" />
+
+                <!-- Sliding Machined Chrome Focus Rings (Translate along barrel as focus adjusts) -->
+                <g class="projector-focus-collar">
+                  <rect x="34" y="51" width="5" height="58" rx="1" fill="url(#chrome-rim)" stroke="#0f172a" stroke-width="0.7" />
+                  <rect x="44" y="49.5" width="6" height="61" rx="1" fill="url(#chrome-rim)" stroke="#0f172a" stroke-width="0.7" />
+                </g>
+
+                <!-- Subtle Recessed Telemetry Slit on Side of Barrel -->
+                <rect x="36" y="78.5" width="18" height="3" rx="1" fill="#060911" stroke="#334155" stroke-width="0.6" />
+                <rect class="projector-barrel-slit" x="37" y="79.2" width="12" height="1.6" fill="#3cf6ff" fill-opacity="0.85" />
+
+                <!-- Heavy Beveled Front Nozzle Collar -->
+                <polygon points="14,58 25,52 25,108 14,102" fill="url(#chrome-rim)" stroke="#475569" stroke-width="1.1" />
+
+                <!-- Articulated Front Emitter Aperture Flaps / Field Baffles -->
+                <g class="projector-emitter-flap top">
+                  <polygon points="3,51 26,44 32,50 11,57" fill="url(#gunmetal-plate)" stroke="#94a3b8" stroke-width="1" />
+                  <line x1="5" y1="54.5" x2="25" y2="48.5" stroke="#3cf6ff" stroke-width="1.2" stroke-opacity="0.85" />
+                  <circle cx="26" cy="49" r="1.8" fill="#090d16" stroke="#cbd5e1" stroke-width="0.8" />
+                </g>
+                <g class="projector-emitter-flap bottom">
+                  <polygon points="3,109 26,116 32,110 11,103" fill="url(#gunmetal-plate)" stroke="#94a3b8" stroke-width="1" />
+                  <line x1="5" y1="105.5" x2="25" y2="111.5" stroke="#3cf6ff" stroke-width="1.2" stroke-opacity="0.85" />
+                  <circle cx="26" cy="111" r="1.8" fill="#090d16" stroke="#cbd5e1" stroke-width="0.8" />
+                </g>
+
+                <!-- Recessed Optical Emitter Cavity & Lens Core (Seated inside the metal nozzle) -->
+                <ellipse cx="14" cy="80" rx="5.5" ry="21" fill="#05080f" stroke="#64748b" stroke-width="1.4" />
+                <ellipse cx="14.5" cy="80" rx="4" ry="17" fill="#091322" stroke="#1e293b" stroke-width="1" />
+                <ellipse class="projector-lens-core" cx="15" cy="80" rx="3.8" ry="14.5" fill="url(#proj-lens-glow)" />
+                <ellipse cx="15.5" cy="80" rx="1.6" ry="8" fill="#ffffff" />
+
+                <!-- Heavy Machined Gimbal Trunnion Bearing (Pivot Axis) -->
+                <circle cx="72" cy="80" r="15" fill="url(#bearing-metal)" stroke="#94a3b8" stroke-width="1.3" />
+                <circle cx="72" cy="80" r="9.5" fill="#0b1018" stroke="#475569" stroke-width="1.1" />
+                <!-- 6 Bearing Cap Screws -->
+                <circle cx="72" cy="68" r="1.3" fill="#94a3b8" />
+                <circle cx="72" cy="92" r="1.3" fill="#94a3b8" />
+                <circle cx="61.5" cy="74" r="1.3" fill="#94a3b8" />
+                <circle cx="82.5" cy="74" r="1.3" fill="#94a3b8" />
+                <circle cx="61.5" cy="86" r="1.3" fill="#94a3b8" />
+                <circle cx="82.5" cy="86" r="1.3" fill="#94a3b8" />
+                <!-- Tiny Center Axis Pin -->
+                <circle cx="72" cy="80" r="3" fill="url(#chrome-rim)" stroke="#05080f" stroke-width="0.8" />
+              </g>
+            </svg>
+          </div>
           <div class="projector-cone"></div>
-          <div class="holo-stage" data-holo>
+          <div class="holo-stage" data-holo role="button" tabindex="0" aria-label="Interactive hologram display. Click to cycle hologram modes.">
             <div class="ring ring-a"></div>
             <div class="ring ring-b"></div>
-            <div class="holo-logo">
-              <img src="assets/Dark%203rd%20Dimension%20Logo%20Cyan.png" alt="D3D Logo" class="holo-logo-img">
-              <div class="scanlines"></div>
+            <div class="ring ring-c"></div>
+            <div class="holo-content" data-holo-content>
+              <div class="holo-logo" data-holo-2d>
+                <img src="assets/Dark%203rd%20Dimension%20Logo%20Cyan.png" alt="D3D Logo" class="holo-logo-img">
+                <div class="scanlines"></div>
+              </div>
+              <div class="holo-3d-container" data-holo-3d aria-hidden="true">
+                <div class="holo-3d-scanlines"></div>
+              </div>
+            </div>
+            <div class="holo-hud" aria-live="polite">
+              <span class="holo-hud-mode" data-holo-label>HOLO // 01 : D3D EMBLEM</span>
+              <span class="holo-hud-hint">[ CLICK TO CYCLE ]</span>
             </div>
           </div>
         </div>
@@ -197,7 +519,9 @@
       <span>dark3rddimension.com</span>
     </footer>
     <script src="js/projects.js"></script>
+    <script src="js/holo-models.js"></script>
     <script src="js/main.js"></script>
+    <script type="module" src="js/holo-viewer.js"></script>
   </body>
 </html>
 <!-- SVG Filter for Glitch Effect -->

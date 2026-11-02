@@ -52,8 +52,13 @@ html {
 }
 
 @keyframes spinWarningY {
-  0% { transform: rotateY(0deg); }
-  100% { transform: rotateY(360deg); }
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateY(360deg);
+  }
 }
 
 body {
@@ -172,69 +177,446 @@ a {
   }
 }
 
-.topbar,
 main,
 footer {
   position: relative;
   z-index: 1;
 }
 
-.topbar {
+/* ==========================================================================
+   TOP-LEFT UNFOLDING HOLOGRAM PROJECTOR MENU
+   ========================================================================== */
+
+.holo-menu-dock {
+  --menu-turret-angle: 0deg;
+  --menu-flap-boost: 0deg;
+  position: sticky;
+  top: 0.85rem;
+  left: 0;
+  z-index: 9000;
+  width: fit-content;
+  height: 82px;
+  margin-top: 0.65rem;
+  margin-bottom: -1.2rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
-  padding: 1.25rem 4vw;
-  border-bottom: 1px solid rgba(60, 246, 255, 0.18);
-  background: rgba(5, 6, 12, 0.55);
-  backdrop-filter: blur(10px);
 }
 
-.mark {
+.menu-projector-btn {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  font-family: var(--font-display);
-  letter-spacing: 0.12em;
-  font-size: 0.82rem;
+  z-index: 3;
+  outline: none;
+  filter:
+    drop-shadow(6px 8px 14px rgba(0, 0, 0, 0.88)) drop-shadow(3px 0 10px rgba(60, 246, 255, 0.16));
+  transition: filter 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.mark small {
+.holo-menu-dock:hover .menu-projector-btn,
+.holo-menu-dock.is-open .menu-projector-btn,
+.holo-menu-dock:focus-within .menu-projector-btn {
+  filter:
+    drop-shadow(6px 8px 14px rgba(0, 0, 0, 0.9)) drop-shadow(6px 0 18px rgba(60, 246, 255, 0.42));
+}
+
+/* Left-Edge Anchored Wall Mount (Flush to Left Window Edge) */
+.menu-wall-mount {
+  position: relative;
+  width: 28px;
+  height: 76px;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.wall-flange.left {
+  left: 0;
+  right: auto;
+  border-radius: 0 3px 3px 0;
+  border-left: none;
+  border-right: 2px solid #94a3b8;
+  box-shadow:
+    inset -2px 0 4px rgba(255, 255, 255, 0.22),
+    inset 3px 0 6px rgba(0, 0, 0, 0.85),
+    4px 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.wall-flange.left::before,
+.wall-flange.left::after {
+  left: auto;
+  right: 3px;
+}
+
+.menu-wall-mount .wall-strut,
+.menu-wall-mount .wall-conduit {
+  left: 12px;
+  right: -6px;
+}
+
+.menu-projector-rig {
+  position: relative;
+  z-index: 2;
+  width: 112px;
+  height: 88px;
+  margin-left: -6px;
   display: block;
-  font-family: var(--font-mono);
-  letter-spacing: 0.08em;
-  color: var(--cyan);
-  font-size: 0.68rem;
-  margin-top: 0.2rem;
+  overflow: visible;
 }
 
-.mark-hex {
-  width: 18px;
-  height: 20px;
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-  background: linear-gradient(180deg, var(--cyan), var(--purple));
-  box-shadow: var(--glow-c);
+/* Mechanical Turret & Unfolding Parts */
+.menu-projector-turret {
+  transform-box: view-box;
+  transform-origin: 72px 70px;
+  transform: rotate(var(--menu-turret-angle, 0deg));
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-nav {
+.menu-barrel-slide {
+  transform-box: view-box;
+  transform: translateX(0px);
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-mid-flap.top {
+  transform-box: view-box;
+  transform-origin: 64px 29px;
+  transform: rotate(4deg);
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-mid-flap.bottom {
+  transform-box: view-box;
+  transform-origin: 64px 111px;
+  transform: rotate(-4deg);
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-emitter-flap.top {
+  transform-box: view-box;
+  transform-origin: 132px 43px;
+  transform: rotate(15deg);
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-emitter-flap.bottom {
+  transform-box: view-box;
+  transform-origin: 132px 97px;
+  transform: rotate(-15deg);
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-cooling-vents {
+  opacity: 0.15;
+  filter: drop-shadow(0 0 4px var(--cyan));
+  transition: opacity 0.38s ease, filter 0.38s ease;
+}
+
+.menu-lens-core,
+.menu-lens-spark {
+  transform-box: view-box;
+  transform-origin: 143.5px 70px;
+  opacity: 0.22;
+  transform: scaleY(0.35);
+  filter: drop-shadow(2px 0 4px var(--cyan));
+  transition: opacity 0.35s ease, transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+}
+
+.menu-bars-icon {
+  filter: drop-shadow(0 0 5px rgba(60, 246, 255, 0.65));
+  transition: filter 0.3s ease;
+}
+
+.menu-bars-icon .bar {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), fill 0.3s ease;
+}
+
+/* Unfolded & Ignited State on Hover / Open */
+.holo-menu-dock:hover .menu-barrel-slide,
+.holo-menu-dock.is-open .menu-barrel-slide,
+.holo-menu-dock:focus-within .menu-barrel-slide {
+  transform: translateX(12px);
+}
+
+.holo-menu-dock:hover .menu-mid-flap.top,
+.holo-menu-dock.is-open .menu-mid-flap.top,
+.holo-menu-dock:focus-within .menu-mid-flap.top {
+  transform: rotate(calc(-17deg - var(--menu-flap-boost, 0deg)));
+}
+
+.holo-menu-dock:hover .menu-mid-flap.bottom,
+.holo-menu-dock.is-open .menu-mid-flap.bottom,
+.holo-menu-dock:focus-within .menu-mid-flap.bottom {
+  transform: rotate(calc(17deg + var(--menu-flap-boost, 0deg)));
+}
+
+.holo-menu-dock:hover .menu-emitter-flap.top,
+.holo-menu-dock.is-open .menu-emitter-flap.top,
+.holo-menu-dock:focus-within .menu-emitter-flap.top {
+  transform: rotate(calc(-21deg - var(--menu-flap-boost, 0deg)));
+}
+
+.holo-menu-dock:hover .menu-emitter-flap.bottom,
+.holo-menu-dock.is-open .menu-emitter-flap.bottom,
+.holo-menu-dock:focus-within .menu-emitter-flap.bottom {
+  transform: rotate(calc(21deg + var(--menu-flap-boost, 0deg)));
+}
+
+.holo-menu-dock:hover .menu-cooling-vents,
+.holo-menu-dock.is-open .menu-cooling-vents,
+.holo-menu-dock:focus-within .menu-cooling-vents {
+  opacity: 0.96;
+  filter: drop-shadow(0 0 8px var(--cyan));
+}
+
+.holo-menu-dock:hover .menu-lens-core,
+.holo-menu-dock.is-open .menu-lens-core,
+.holo-menu-dock:focus-within .menu-lens-core,
+.holo-menu-dock:hover .menu-lens-spark,
+.holo-menu-dock.is-open .menu-lens-spark,
+.holo-menu-dock:focus-within .menu-lens-spark {
+  opacity: 1;
+  transform: scaleY(1);
+  filter: drop-shadow(4px 0 8px var(--cyan)) drop-shadow(8px 0 16px var(--white));
+}
+
+.holo-menu-dock:hover .menu-bars-icon,
+.holo-menu-dock.is-open .menu-bars-icon,
+.holo-menu-dock:focus-within .menu-bars-icon {
+  filter:
+    drop-shadow(0 0 8px var(--cyan)) drop-shadow(0 0 16px rgba(181, 107, 255, 0.7));
+}
+
+.holo-menu-dock:hover .menu-bars-icon .bar,
+.holo-menu-dock.is-open .menu-bars-icon .bar,
+.holo-menu-dock:focus-within .menu-bars-icon .bar {
+  fill: #e0ffff;
+}
+
+.holo-menu-dock:hover .menu-bars-icon .bar-1,
+.holo-menu-dock.is-open .menu-bars-icon .bar-1,
+.holo-menu-dock:focus-within .menu-bars-icon .bar-1 {
+  transform: translateY(-2px);
+}
+
+.holo-menu-dock:hover .menu-bars-icon .bar-3,
+.holo-menu-dock.is-open .menu-bars-icon .bar-3,
+.holo-menu-dock:focus-within .menu-bars-icon .bar-3 {
+  transform: translateY(2px);
+}
+
+/* Projected Hologram Beam & Floating Menu Stage */
+.menu-holo-stage {
+  position: absolute;
+  left: 122px;
+  top: 50%;
+  transform: translateY(-32%);
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 0.85rem 1.1rem;
+  align-items: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.holo-menu-dock:hover .menu-holo-stage,
+.holo-menu-dock.is-open .menu-holo-stage,
+.holo-menu-dock:focus-within .menu-holo-stage {
+  pointer-events: auto;
+}
+
+/* Volumetric Light Beam Cone from Left Projector to Hologram Menu */
+.menu-projector-cone {
+  position: relative;
+  width: 78px;
+  height: 196px;
+  margin-right: -8px;
+  background: linear-gradient(90deg,
+      rgba(60, 246, 255, 0.52) 0%,
+      rgba(60, 246, 255, 0.24) 48%,
+      rgba(181, 107, 255, 0.14) 82%,
+      rgba(60, 246, 255, 0.04) 100%);
+  clip-path: polygon(0% 29%,
+      0% 39%,
+      100% 97%,
+      100% 3%);
+  filter: blur(2.5px);
+  transform-origin: 0% 34%;
+  transform: scaleX(0) scaleY(0.12);
+  opacity: 0;
+  transition:
+    transform 0.38s cubic-bezier(0.16, 1, 0.3, 1) 0.06s,
+    opacity 0.28s ease 0.05s;
+}
+
+.menu-beam-scanlines {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(to bottom,
+      rgba(212, 254, 255, 0.32) 0 1.5px,
+      transparent 1.5px 6px);
+  mix-blend-mode: screen;
+  animation: scan 2.8s linear infinite;
+}
+
+.holo-menu-dock:hover .menu-projector-cone,
+.holo-menu-dock.is-open .menu-projector-cone,
+.holo-menu-dock:focus-within .menu-projector-cone {
+  transform: scaleX(1) scaleY(1);
+  opacity: 1;
+}
+
+/* Floating Projected Hologram Menu Panel */
+.holo-menu-projection {
+  position: relative;
+  min-width: 248px;
+  padding: 0.8rem 0.95rem 0.9rem;
+  background:
+    radial-gradient(circle at 15% 50%, rgba(60, 246, 255, 0.16), transparent 70%),
+    linear-gradient(135deg, rgba(6, 18, 32, 0.84), rgba(8, 10, 24, 0.72));
+  border: 1px solid rgba(60, 246, 255, 0.55);
+  box-shadow:
+    0 0 22px rgba(60, 246, 255, 0.35),
+    0 0 42px rgba(181, 107, 255, 0.22),
+    inset 0 0 18px rgba(60, 246, 255, 0.18);
+  backdrop-filter: blur(10px);
+  clip-path: polygon(12px 0,
+      100% 0,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      0 100%,
+      0 12px);
+  transform-origin: left 34%;
+  transform: perspective(700px) rotateY(-24deg) translateX(-18px) scale(0.72);
+  opacity: 0;
+  transition:
+    transform 0.42s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
+    opacity 0.3s ease 0.08s;
+  overflow: hidden;
+}
+
+.holo-menu-dock:hover .holo-menu-projection,
+.holo-menu-dock.is-open .holo-menu-projection,
+.holo-menu-dock:focus-within .holo-menu-projection {
+  transform: perspective(700px) rotateY(-4deg) translateX(0) scale(1);
+  opacity: 1;
+  animation: flicker 7s steps(2, end) infinite;
+}
+
+.holo-menu-scanlines {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg,
+      transparent 0%,
+      rgba(60, 246, 255, 0.18) 50%,
+      transparent 100%),
+    repeating-linear-gradient(to bottom,
+      rgba(60, 246, 255, 0.14) 0 1.5px,
+      transparent 1.5px 6px);
+  background-size: 100% 180%, 100% 100%;
+  mix-blend-mode: screen;
+  animation: scan 3.2s linear infinite;
+  pointer-events: none;
+}
+
+.holo-menu-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-nav a:hover {
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
   color: var(--cyan);
-  text-shadow: var(--glow-c);
+  padding-bottom: 0.48rem;
+  margin-bottom: 0.55rem;
+  border-bottom: 1px solid rgba(60, 246, 255, 0.28);
+  text-shadow: 0 0 8px rgba(60, 246, 255, 0.6);
 }
 
-nav a[data-status="soon"]::after {
-  content: " •";
+.holo-menu-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.holo-menu-links {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.holo-menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  padding: 0.48rem 0.68rem;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: rgba(60, 246, 255, 0.05);
+  border: 1px solid rgba(60, 246, 255, 0.22);
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  text-shadow: 0 0 10px rgba(60, 246, 255, 0.45);
+  transition:
+    transform 0.22s ease,
+    background 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    color 0.22s ease;
+}
+
+.holo-menu-link:hover,
+.holo-menu-link:focus-visible {
+  color: #ffffff;
+  background: linear-gradient(90deg, rgba(60, 246, 255, 0.24), rgba(181, 107, 255, 0.18));
+  border-color: var(--cyan);
+  box-shadow:
+    0 0 14px rgba(60, 246, 255, 0.45),
+    inset 0 0 10px rgba(60, 246, 255, 0.22);
+  transform: translateX(5px);
+}
+
+.holo-link-idx {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--cyan);
+  opacity: 0.85;
+}
+
+.holo-link-label {
+  flex: 1;
+}
+
+.holo-link-tag {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  padding: 0.1rem 0.38rem;
+  border-radius: 2px;
+  color: var(--cyan);
+  background: rgba(60, 246, 255, 0.12);
+  border: 1px solid rgba(60, 246, 255, 0.35);
+}
+
+.holo-link-tag.soon {
   color: var(--purple);
+  background: rgba(181, 107, 255, 0.12);
+  border-color: rgba(181, 107, 255, 0.4);
 }
 
 .hero {
@@ -242,7 +624,7 @@ nav a[data-status="soon"]::after {
   grid-template-columns: 1.1fr 0.9fr;
   gap: 3rem;
   align-items: center;
-  padding: 7vh 6vw 10vh;
+  padding: 4.5vh 6vw 10vh;
 }
 
 .eyebrow {
@@ -342,47 +724,288 @@ h1 {
   filter: brightness(1.12);
 }
 
+/* ==========================================================================
+   INTERACTIVE HOLOGRAM STAGE (3D Parallax + Click Glitch/Beam Transition)
+   ========================================================================== */
+
 .holo-wrapper {
+  --mx: 0;
+  --my: 0;
+  --hover: 0;
   position: relative;
   width: 100%;
   height: min(62vh, 540px);
+  perspective: 1000px;
 }
 
 .projector-source {
+  --turret-angle: 0deg;
   position: absolute;
-  right: -5%;
+  right: -82px;
   top: 50%;
-  transform: translateY(-50%);
-  width: 10%;
-  aspect-ratio: 1;
-  background: radial-gradient(circle, var(--white), var(--cyan) 30%, transparent 70%);
+  transform: translate3d(0, -50%, 0);
+  width: 96px;
+  height: 96px;
+  z-index: 4;
+  pointer-events: none;
+  filter:
+    drop-shadow(-6px 8px 14px rgba(0, 0, 0, 0.88)) drop-shadow(-3px 0 10px rgba(60, 246, 255, 0.18));
+}
+
+/* Anchored Wall Bulkhead & Struts reaching flush to the right window edge */
+.projector-wall-mount {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 52px;
+  right: min(-6px, calc(82px - 6vw));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.wall-flange {
+  position: absolute;
+  right: 0;
+  top: 6%;
+  bottom: 6%;
+  width: 14px;
+  border-radius: 3px 0 0 3px;
+  background: linear-gradient(180deg,
+      #0b0f17 0%,
+      #2c3545 16%,
+      #64748b 30%,
+      #94a3b8 35%,
+      #1e2530 50%,
+      #334155 74%,
+      #0f1520 90%,
+      #070a10 100%);
+  border-left: 2px solid #94a3b8;
+  border-top: 1px solid #475569;
+  border-bottom: 1px solid #0f172a;
+  box-shadow:
+    inset 2px 0 4px rgba(255, 255, 255, 0.22),
+    inset -3px 0 6px rgba(0, 0, 0, 0.85),
+    -4px 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.wall-flange::before,
+.wall-flange::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  box-shadow: 0 0 50px var(--cyan);
+  background: radial-gradient(circle at 35% 35%, #cbd5e1, #0f172a 75%);
+  border: 1px solid #05080f;
+}
+
+.wall-flange::before {
+  top: 10px;
+}
+
+.wall-flange::after {
+  bottom: 10px;
+}
+
+.wall-strut {
+  position: absolute;
+  left: 0;
+  right: 12px;
+  height: 9px;
+  background: linear-gradient(180deg,
+      #070a10 0%,
+      #334155 20%,
+      #cbd5e1 36%,
+      #475569 52%,
+      #1e293b 78%,
+      #05080f 100%);
+  border-top: 1px solid #64748b;
+  border-bottom: 1px solid #05080f;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.75);
+}
+
+.wall-strut.top {
+  top: 20%;
+}
+
+.wall-strut.bottom {
+  bottom: 20%;
+}
+
+.wall-conduit {
+  position: absolute;
+  left: 0;
+  right: 12px;
+  top: 37%;
+  bottom: 37%;
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(5, 8, 15, 0.75) 0px,
+      rgba(5, 8, 15, 0.75) 3px,
+      rgba(148, 163, 184, 0.18) 3px,
+      rgba(30, 41, 59, 0.25) 6px),
+    linear-gradient(180deg,
+      #060911 0%,
+      #1e293b 22%,
+      #475569 42%,
+      #111827 72%,
+      #05070c 100%);
+  border-top: 1px solid #334155;
+  border-bottom: 1px solid #090d16;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.85);
+}
+
+.projector-rig {
+  position: relative;
   z-index: 2;
-  filter: blur(4px);
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.projector-turret {
+  transform-box: view-box;
+  transform-origin: 72px 80px;
+  transform: rotate(var(--turret-angle, 0deg));
+}
+
+.projector-mid-flap.top {
+  transform-box: view-box;
+  transform-origin: 92px 36px;
+  transform: rotate(var(--mid-flap-angle, 3deg));
+}
+
+.projector-mid-flap.bottom {
+  transform-box: view-box;
+  transform-origin: 92px 124px;
+  transform: rotate(calc(var(--mid-flap-angle, 3deg) * -1));
+}
+
+.projector-emitter-flap.top {
+  transform-box: view-box;
+  transform-origin: 26px 49px;
+  transform: rotate(var(--emitter-flap-angle, 4deg));
+}
+
+.projector-emitter-flap.bottom {
+  transform-box: view-box;
+  transform-origin: 26px 111px;
+  transform: rotate(calc(var(--emitter-flap-angle, 4deg) * -1));
+}
+
+.projector-focus-collar {
+  transform-box: view-box;
+  transform: translateX(var(--focus-shift, 0px));
+}
+
+.projector-cooling-vents {
+  opacity: var(--vent-glow, 0.35);
+  filter: drop-shadow(0 0 6px var(--cyan));
+}
+
+.projector-lens-core {
+  filter: drop-shadow(-3px 0 7px var(--cyan)) drop-shadow(-6px 0 14px var(--white));
 }
 
 .projector-cone {
+  --beam-end-x: 45%;
+  --beam-top-y: 34%;
+  --beam-bot-y: 66%;
   position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 120%;
+  inset: 0;
+  width: 100%;
   height: 100%;
-  background: linear-gradient(270deg, rgba(60, 246, 255, 0.25) 0%, rgba(60, 246, 255, 0.05) 50%, transparent 100%);
-  clip-path: polygon(100% 45%, 100% 55%, 0% 100%, 0% 0%);
+  background: linear-gradient(270deg,
+      rgba(60, 246, 255, calc(0.26 + var(--hover) * 0.1)) 0%,
+      rgba(60, 246, 255, calc(0.11 + var(--hover) * 0.05)) 26%,
+      rgba(181, 107, 255, calc(0.05 + var(--hover) * 0.03)) 44%,
+      transparent 55%);
+  clip-path: polygon(100% 47.5%,
+      100% 52.5%,
+      var(--beam-end-x) var(--beam-bot-y),
+      var(--beam-end-x) var(--beam-top-y));
   z-index: 1;
   pointer-events: none;
-  filter: blur(10px);
+}
+
+.projector-beam-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(0.6px);
+}
+
+/* Beam-Pulse Animation on Click Transition */
+.holo-wrapper.is-transitioning .projector-source {
+  animation: sourceBeamPulse 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.holo-wrapper.is-transitioning .projector-cone {
+  animation: coneBeamPulse 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes sourceBeamPulse {
+  0% {
+    filter: drop-shadow(-6px 8px 14px rgba(0, 0, 0, 0.88)) drop-shadow(-3px 0 10px rgba(60, 246, 255, 0.18));
+  }
+
+  35% {
+    filter: drop-shadow(-6px 8px 14px rgba(0, 0, 0, 0.88)) drop-shadow(-10px 0 28px var(--cyan)) brightness(1.3);
+  }
+
+  100% {
+    filter: drop-shadow(-6px 8px 14px rgba(0, 0, 0, 0.88)) drop-shadow(-3px 0 10px rgba(60, 246, 255, 0.18));
+  }
+}
+
+@keyframes coneBeamPulse {
+  0% {
+    opacity: 1;
+    filter: blur(7px) brightness(1);
+  }
+
+  35% {
+    opacity: 1;
+    background: linear-gradient(270deg,
+        rgba(247, 251, 255, 0.8) 0%,
+        rgba(60, 246, 255, 0.55) 25%,
+        rgba(181, 107, 255, 0.28) 45%,
+        transparent 56%);
+    filter: blur(5px) brightness(1.75);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(7px) brightness(1);
+  }
 }
 
 .holo-stage {
+  --mx: 0;
+  --my: 0;
+  --hover: 0;
   position: relative;
   width: 100%;
   height: 100%;
   display: grid;
   place-items: center;
   z-index: 3;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transform-style: preserve-3d;
+  transform: perspective(950px) rotateX(calc(var(--my) * -15deg)) rotateY(calc(var(--mx) * 18deg));
+}
+
+.holo-stage:focus-visible .ring-a {
+  border-color: var(--white);
+  box-shadow: 0 0 25px var(--cyan), inset 0 0 25px var(--cyan);
 }
 
 .ring {
@@ -390,56 +1013,113 @@ h1 {
   border: 1px solid rgba(60, 246, 255, 0.35);
   border-radius: 50%;
   box-shadow: inset 0 0 28px rgba(60, 246, 255, 0.15), var(--glow-c);
+  pointer-events: none;
+  will-change: transform, rotate;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Deep background parallax layer */
 .ring-a {
   width: min(78%, 420px);
   aspect-ratio: 1;
+  transform: translate3d(calc(var(--mx) * -32px), calc(var(--my) * -32px), -50px);
   animation: spin 22s linear infinite;
   border-top-color: var(--cyan);
   border-bottom-color: var(--cyan);
 }
 
+/* Mid-foreground parallax layer */
 .ring-b {
   width: min(58%, 300px);
   aspect-ratio: 1;
+  transform: translate3d(calc(var(--mx) * 20px), calc(var(--my) * 20px), 22px);
   animation: spin 14s linear infinite reverse;
   border-left-color: var(--cyan);
   border-right-color: var(--cyan);
 }
 
+/* Subtle inner dashed telemetry ring */
+.ring-c {
+  width: min(44%, 225px);
+  aspect-ratio: 1;
+  border: 1px dashed rgba(181, 107, 255, 0.38);
+  box-shadow: inset 0 0 18px rgba(181, 107, 255, 0.12);
+  transform: translate3d(calc(var(--mx) * -12px), calc(var(--my) * -12px), -18px);
+  animation: spin 30s linear infinite;
+}
+
+.holo-wrapper.is-hovered .ring-a {
+  border-top-color: var(--white);
+  box-shadow: inset 0 0 34px rgba(60, 246, 255, 0.28), 0 0 26px rgba(60, 246, 255, 0.6);
+}
+
+.holo-wrapper.is-hovered .ring-b {
+  border-left-color: var(--purple);
+  border-right-color: var(--cyan);
+  box-shadow: inset 0 0 28px rgba(181, 107, 255, 0.25), 0 0 22px rgba(181, 107, 255, 0.5);
+}
+
+.holo-wrapper.is-transitioning .ring-a,
+.holo-wrapper.is-transitioning .ring-b,
+.holo-wrapper.is-transitioning .ring-c {
+  border-color: var(--white);
+  box-shadow: 0 0 40px var(--cyan), inset 0 0 40px var(--purple);
+}
+
 @keyframes spin {
   to {
-    transform: rotate(360deg);
+    rotate: 360deg;
   }
+}
+
+/* Foreground 3D Parallax Container for 2D Logo & 3D WebGL Hologram */
+.holo-content {
+  position: relative;
+  width: min(74%, 360px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+  transform: translate3d(calc(var(--mx) * 38px), calc(var(--my) * 38px), 60px);
+  pointer-events: none;
+  will-change: transform, filter;
 }
 
 .holo-logo {
   position: relative;
-  width: min(70%, 340px);
-  aspect-ratio: 1;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   animation: flicker 7s steps(2, end) infinite;
-  filter: drop-shadow(0 0 10px rgba(60, 246, 255, 0.6)) drop-shadow(0 0 30px rgba(60, 246, 255, 0.4));
+  filter:
+    drop-shadow(calc(var(--mx) * -8px) calc(var(--my) * -8px) 12px rgba(60, 246, 255, 0.65)) drop-shadow(calc(var(--mx) * 8px) calc(var(--my) * 8px) 26px rgba(181, 107, 255, calc(0.25 + var(--hover) * 0.35))) drop-shadow(0 0 30px rgba(60, 246, 255, 0.4));
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.holo-logo.is-hidden {
+  opacity: 0 !important;
+  visibility: hidden;
+  animation: none;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
 }
 
 .holo-logo-img {
-  width: 100%;
+  width: 92%;
   height: auto;
   object-fit: contain;
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
 .scanlines {
   position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.2) 0 2px,
-    transparent 2px 8px
-  );
+  inset: 4%;
+  background: repeating-linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.22) 0 2px,
+      transparent 2px 8px);
   mix-blend-mode: screen;
   animation: scan 4s linear infinite;
   pointer-events: none;
@@ -453,6 +1133,204 @@ h1 {
   -webkit-mask-position: center;
 }
 
+/* 3D Hologram Container (Three.js Canvas + Scanline Overlay) */
+.holo-3d-container {
+  position: absolute;
+  inset: -6%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  filter:
+    drop-shadow(calc(var(--mx) * -8px) calc(var(--my) * -8px) 14px rgba(60, 246, 255, 0.65)) drop-shadow(calc(var(--mx) * 8px) calc(var(--my) * 8px) 24px rgba(181, 107, 255, 0.45));
+  transition: opacity 0.2s ease;
+}
+
+.holo-3d-container.is-active {
+  opacity: 1;
+  animation: flicker 7s steps(2, end) infinite;
+}
+
+.holo-3d-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.holo-3d-scanlines {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: repeating-linear-gradient(to bottom,
+      rgba(60, 246, 255, 0.14) 0 2px,
+      transparent 2px 7px);
+  mix-blend-mode: screen;
+  animation: scan 3.5s linear infinite;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at center, #000 45%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at center, #000 45%, transparent 75%);
+}
+
+/* Holographic Glitch Burst on Click Transition */
+.holo-stage.is-glitching .holo-content {
+  animation: holoStageGlitch 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes holoStageGlitch {
+  0% {
+    filter: none;
+    transform: translate3d(calc(var(--mx) * 38px), calc(var(--my) * 38px), 60px) scale(1);
+  }
+
+  18% {
+    clip-path: inset(12% 0 62% 0);
+    transform: translate3d(calc(var(--mx) * 38px - 10px), calc(var(--my) * 38px + 4px), 75px) skewX(8deg) scale(1.06);
+    filter: url(#glitch-filter) hue-rotate(85deg) brightness(1.9) contrast(2);
+    opacity: 0.85;
+  }
+
+  38% {
+    clip-path: inset(58% 0 8% 0);
+    transform: translate3d(calc(var(--mx) * 38px + 12px), calc(var(--my) * 38px - 5px), 45px) skewX(-10deg) scale(0.94);
+    filter: url(#glitch-filter) hue-rotate(-95deg) brightness(2.2) contrast(2.2);
+    opacity: 0.35;
+  }
+
+  58% {
+    clip-path: inset(25% 0 28% 0);
+    transform: translate3d(calc(var(--mx) * 38px - 7px), calc(var(--my) * 38px + 2px), 70px) skewX(5deg) scale(1.04);
+    filter: url(#glitch-filter) hue-rotate(45deg) brightness(1.7) contrast(1.6);
+    opacity: 0.9;
+  }
+
+  80% {
+    clip-path: inset(4% 0 68% 0);
+    transform: translate3d(calc(var(--mx) * 38px + 4px), calc(var(--my) * 38px - 2px), 62px) skewX(-3deg) scale(1.01);
+    filter: brightness(1.35) contrast(1.2);
+    opacity: 0.95;
+  }
+
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate3d(calc(var(--mx) * 38px), calc(var(--my) * 38px), 60px) scale(1);
+    filter: none;
+    opacity: 1;
+  }
+}
+
+/* Subtle Hologram Telemetry HUD Readout */
+.holo-hud {
+  position: absolute;
+  bottom: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  pointer-events: none;
+  transform: translate3d(calc(var(--mx) * 14px), calc(var(--my) * 10px), 35px);
+  z-index: 4;
+}
+
+.holo-hud-mode {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+  padding: 0.22rem 0.65rem;
+  background: rgba(5, 6, 12, 0.65);
+  border: 1px solid rgba(60, 246, 255, 0.32);
+  box-shadow: var(--glow-c);
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  transition: border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.holo-hud-hint {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  opacity: 0.55;
+  transition: opacity 0.25s ease, color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.holo-wrapper.is-hovered .holo-hud-mode {
+  border-color: rgba(60, 246, 255, 0.75);
+  box-shadow: 0 0 18px rgba(60, 246, 255, 0.65), inset 0 0 10px rgba(181, 107, 255, 0.25);
+}
+
+.holo-wrapper.is-hovered .holo-hud-hint {
+  opacity: 0.95;
+  color: var(--purple);
+  text-shadow: var(--glow-p);
+}
+
+/* Live Orientation Tuner HUD (Toggled with 'O' key) */
+.holo-orient-tuner {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate3d(-50%, 0, 75px);
+  background: rgba(5, 8, 18, 0.92);
+  border: 1px solid var(--cyan);
+  box-shadow: var(--glow-c), inset 0 0 20px rgba(60, 246, 255, 0.15);
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 280px;
+  cursor: default;
+}
+
+.holo-orient-tuner[hidden] {
+  display: none !important;
+}
+
+.tuner-head,
+.tuner-output {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  color: var(--cyan);
+}
+
+.tuner-controls {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.3rem;
+}
+
+.tuner-btn {
+  background: rgba(60, 246, 255, 0.1);
+  border: 1px solid rgba(60, 246, 255, 0.45);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 0.25rem 0.4rem;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.tuner-btn:hover {
+  background: rgba(60, 246, 255, 0.28);
+  border-color: var(--cyan);
+  box-shadow: var(--glow-c);
+}
+
+.tuner-output code {
+  color: var(--purple);
+  background: rgba(181, 107, 255, 0.1);
+  padding: 0.2rem 0.45rem;
+  border: 1px solid rgba(181, 107, 255, 0.35);
+  flex: 1;
+  user-select: all;
+}
+
 @keyframes scan {
   to {
     transform: translateY(16px);
@@ -460,15 +1338,18 @@ h1 {
 }
 
 @keyframes flicker {
+
   0%,
   96%,
   100% {
     opacity: 1;
   }
+
   97% {
     opacity: 0.7;
     transform: skewX(2deg);
   }
+
   98% {
     opacity: 1;
     transform: translateX(2px);
@@ -569,26 +1450,12 @@ footer {
   border-top: 1px solid rgba(181, 107, 255, 0.2);
 }
 
-@media (max-width: 1100px) {
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  nav {
-    justify-content: flex-start;
-  }
-}
-
 @media (max-width: 900px) {
+
   .hero,
   .tile-grid,
   .split {
     grid-template-columns: 1fr;
-  }
-
-  nav {
-    flex-wrap: wrap;
   }
 
   .holo-stage {
@@ -597,6 +1464,7 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -652,30 +1520,35 @@ footer {
     filter: url(#glitch-filter) hue-rotate(90deg) brightness(1.5) contrast(2);
     opacity: 0.8;
   }
+
   20% {
     clip-path: inset(80% 0 5% 0);
     transform: translate(5px, -5px);
     filter: url(#glitch-filter) hue-rotate(-90deg) brightness(1.5) contrast(2);
     opacity: 0.9;
   }
+
   40% {
     clip-path: inset(30% 0 40% 0);
     transform: translate(-5px, 2px);
     filter: url(#glitch-filter) hue-rotate(45deg) brightness(1.2) contrast(1.5);
     opacity: 0.8;
   }
+
   60% {
     clip-path: inset(60% 0 10% 0);
     transform: translate(5px, -2px);
     filter: url(#glitch-filter) hue-rotate(-45deg) brightness(1.2) contrast(1.5);
     opacity: 0.9;
   }
+
   80% {
     clip-path: inset(5% 0 70% 0);
     transform: translate(-2px, 2px);
     filter: url(#glitch-filter) hue-rotate(180deg) brightness(1.1) contrast(1.2);
     opacity: 0.9;
   }
+
   100% {
     clip-path: inset(0 0 0 0);
     transform: translate(0);

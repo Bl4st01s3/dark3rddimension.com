@@ -1,0 +1,2 @@
+Place your 3D logo cube model here as 1.glb, 1.stl, 1.step, 1.obj, etc., and set its count to 1 in js/holo-models.js.
+

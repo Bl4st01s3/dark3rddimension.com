@@ -1,0 +1,2 @@
+Place your 3D model of the 2D emblem logo here as 1.stl, 1.step, 1.glb, 1.obj, etc., and set its count to 1 under logo_emblem.counts in js/holo-models.js.
+
