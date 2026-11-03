@@ -21,24 +21,62 @@ function initHoloMenu() {
 
   if (!menuDock || !projectorBtn) return;
 
+  // --- Sound state ---
+  let isPowered = false;       // Is the menu projector currently switched on?
+  let currentAimDeg = 0;       // Current turret tilt (used to only play the move sound on real changes)
+  let aimResetTimer = null;
+
+  function powerOn() {
+    if (isPowered) return;
+    isPowered = true;
+    window.D3DSound?.play("turnOn");
+  }
+
+  function powerOffIfIdle() {
+    if (menuDock.classList.contains("is-open")) return;
+    if (menuDock.matches(":hover") || menuDock.contains(document.activeElement)) return;
+    isPowered = false;
+  }
+
+  function setAim(aimDeg, flapBoost) {
+    menuDock.style.setProperty("--menu-turret-angle", `${aimDeg}deg`);
+    menuDock.style.setProperty("--menu-flap-boost", flapBoost);
+    if (aimDeg !== currentAimDeg) {
+      currentAimDeg = aimDeg;
+      window.D3DSound?.play("move", { cooldown: 90 });
+    }
+  }
+
+  // Projector turns on when the mouse moves over it (or it receives keyboard focus)
+  menuDock.addEventListener("pointerenter", powerOn);
+  menuDock.addEventListener("focusin", powerOn);
+  menuDock.addEventListener("pointerleave", () => setTimeout(powerOffIfIdle, 0));
+  menuDock.addEventListener("focusout", () => setTimeout(powerOffIfIdle, 0));
+
   // Toggle open state on button click (for touch devices or click-to-pin)
   projectorBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     const isOpen = menuDock.classList.toggle("is-open");
     projectorBtn.setAttribute("aria-expanded", String(isOpen));
+    if (isOpen) {
+      powerOn();
+    } else {
+      setTimeout(powerOffIfIdle, 0);
+    }
   });
 
   // Aim the menu projector turret at whichever holographic menu link is hovered
   menuLinks?.forEach((link) => {
     link.addEventListener("pointerenter", () => {
+      clearTimeout(aimResetTimer);
       const aimDeg = Number(link.getAttribute("data-aim") || 0);
-      menuDock.style.setProperty("--menu-turret-angle", `${aimDeg}deg`);
-      menuDock.style.setProperty("--menu-flap-boost", "3.5deg");
+      setAim(aimDeg, "3.5deg");
     });
 
     link.addEventListener("pointerleave", () => {
-      menuDock.style.setProperty("--menu-turret-angle", "0deg");
-      menuDock.style.setProperty("--menu-flap-boost", "0deg");
+      // Short delay so moving directly between links doesn't snap back to centre first
+      clearTimeout(aimResetTimer);
+      aimResetTimer = setTimeout(() => setAim(0, "0deg"), 120);
     });
 
     link.addEventListener("click", () => {
@@ -52,6 +90,7 @@ function initHoloMenu() {
     if (!menuDock.contains(e.target)) {
       menuDock.classList.remove("is-open");
       projectorBtn.setAttribute("aria-expanded", "false");
+      setTimeout(powerOffIfIdle, 0);
     }
   });
 }

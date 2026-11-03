@@ -58,6 +58,7 @@ function initHologramSystem() {
   let currentSpinSpeed = 1.0;
   let currentWorldHalfY = 0.55;
   let currentApertureOpen = 0.35;
+  let lastMoveSoundAngle = null;
   let spinPausedByTuner = false;
   const topProjVec = new THREE.Vector3();
   const botProjVec = new THREE.Vector3();
@@ -330,6 +331,16 @@ function initHologramSystem() {
         const ventGlow = Math.min(1, 0.22 + currentApertureOpen * 0.78);
 
         projectorSource.style.setProperty("--turret-angle", `${aimAngleDeg.toFixed(2)}deg`);
+
+        // Play the projector-move sound when the head swivels noticeably while the user is interacting
+        if (lastMoveSoundAngle === null) {
+          lastMoveSoundAngle = aimAngleDeg;
+        } else if (isHovered && Math.abs(aimAngleDeg - lastMoveSoundAngle) > 6) {
+          lastMoveSoundAngle = aimAngleDeg;
+          window.D3DSound?.play("move", { cooldown: 650, volume: 0.25 });
+        } else if (!isHovered) {
+          lastMoveSoundAngle = aimAngleDeg;
+        }
         projectorSource.style.setProperty("--emitter-flap-angle", `${emitterFlapDeg.toFixed(2)}deg`);
         projectorSource.style.setProperty("--mid-flap-angle", `${midFlapDeg.toFixed(2)}deg`);
         projectorSource.style.setProperty("--focus-shift", `${focusShiftPx.toFixed(2)}px`);
@@ -346,6 +357,8 @@ function initHologramSystem() {
   async function cycleNextState() {
     if (isTransitioning || states.length <= 1) return;
     isTransitioning = true;
+
+    window.D3DSound?.play("change");
 
     const nextIndex = (currentStateIndex + 1) % states.length;
     const nextState = states[nextIndex];
