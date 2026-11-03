@@ -75,7 +75,11 @@ Each header of the diagram can be set to a colour and shape, letting you colour-
 
 The idea of this project lets people make and read their notes without being faced with a big wall of text that can be difficult for people with dyslexia and those with ADHD, by letting you focus on and only see one small part of the notes at a time.`,
       "status": "ARCHIVED",
-      "images": ["assets/placeholder1.jpg"],
+      "image_folder": "assets/CyberWeb",
+      "counts": {
+        "jpg": 0,
+        "png": 2
+      },
       "link": "projects/cyberweb.html"
     },
     {
