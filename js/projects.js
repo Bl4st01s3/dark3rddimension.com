@@ -104,11 +104,23 @@ The base of this mod was the standard, unmodded Voron StealthBurner straight fro
   "background_threads": [
     {
       "id": "THRD 01",
-      "title": "AI Neural Net",
-      "description": "Experimental generative models for local deployment.",
-      "status": "SUSPENDED",
-      "images": ["assets/placeholder2.jpg", "assets/placeholder5.jpg"],
-      "link": "projects/neural-net.html"
+      "title": "StreamerBall",
+      "description": `the StreamerBall Project is a 3D printable Pokeball with an ESP32 and Servo motor inside powered by a battery. The idea is that the ball will react to events in a stream chat acting as a background prop.
+
+the Servo swings a weighted arm that shifts the centre of mass and makes the whole ball wobble just like in the show and in the games when a pokemon is being caught
+
+there is an option to add a Button and an LED into the button that will let the button flash adding to the screen accuracy and the button allowing for the manual triggers.
+
+the project is still not finished as I'm trying to work out how to get all the electronics to fit inside with out making the ball massive and id also like to see about finding a means of making the parts print with out supports.
+
+the code also hasn't been written yet as im wanting to get the hardware finalised first before moving onto software.`,
+      "status": "Awatiing Hardware Confermation",
+      "image_folder": "assets/CyberWeb",
+      "counts": {
+        "jpg": 0,
+        "png": 3
+      },
+      "link": "projects/StreamerBall.html"
     }
   ]
 };
