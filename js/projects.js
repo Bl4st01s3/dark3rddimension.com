@@ -115,7 +115,7 @@ the project is still not finished as I'm trying to work out how to get all the e
 
 the code also hasn't been written yet as im wanting to get the hardware finalised first before moving onto software.`,
       "status": "Awatiing Hardware Confermation",
-      "image_folder": "assets/CyberWeb",
+      "image_folder": "assets/StreamerBall",
       "counts": {
         "jpg": 0,
         "png": 3
