@@ -1,0 +1,25 @@
+// CLASSIFICATION: D3D_OPERATOR_PROFILE// STATUS: ONLINE AND LOCAL
+
+OVERVIEW
+Operating at the intersection of parametric design and embedded firmware. I am a product designer and maker focused on translating digital geometry into functional reality. 
+If a system requires CAD, Python automation, or melting engineering-grade plastics, it falls within my parameters.
+
+THE ARCHITECTURE
+My workbench relies on an offline-first infrastructure. I do not rely on external tethers or cloud processing. 
+Solutions are built locally, governed by strict data sovereignty, and engineered from the ground up to ensure absolute control over the hardware stack.
+
+FABRICATION FLEET
+Physical manufacturing is driven by a self-built, open-source 3D printing ecosystem calibrated for high-temperature materials like ABS, ASA and can still handle more basic materials like PLA and PETG.
+
+Unit 01 [ "Metagross" ]: A heavily modified Voron V2.4 (350mm).
+
+Unit 02: [ "MewTwo" ]: A compact, fully enclosed Voron V0.2 designed for rapid prototyping and high-speed iterative design.
+
+Unit 03: [ "Arbok" ]: An Original Anycubic Kobra that is reserved for TPU printing. This printer is planned for use as a base for a SwitchWire Conversion
+
+COMPUTE & BENCH TOOLS
+The central command hub is a custom-engineered local compute station built for heavy parametric rendering, code compilation, and offline AI execution.
+
+Core Processing: Custom Built AMD Ryzen 9 9900X rig with 96GB DDR5 and a Radeon RX 9060 XT 16GB GPU on a MSI MAG TOMOHAWK X870E Motherboard and water cooling.
+
+Digital Stack: Autodesk Fusion 360 and OpenSCAD for parametric modelling; Blender for mesh editing, C/C++ and Python for firmware deployment, several IDEs and Orca Slicer for Print Prep.
